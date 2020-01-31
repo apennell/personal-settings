@@ -78,43 +78,6 @@ source $ZSH/oh-my-zsh.sh
 ############## /OH MY ZSH CONFIG ################
 
 
-############### COVERHOUND CONFIG ###############
-
-# Allows brew installed programs like git to take precedence over system installs
-export PATH="/usr/local/bin:$PATH"
-
-eval "$(rbenv init -)"  # initializes rbenv
-eval "$(nodenv init -)" # initializes nodenv
-
-# Identifies my CoverHound admin / advisor / employee email for development
-export CH_USER="annie@coverhound.com"
-
-alias cov-reset-db="bundle install && be rake db:drop && be rake db:create && be rake db:snapshot:import && be rake db:migrate && be rake db:test:prepare"
-alias cap-reset-db="bundle install && be rake db:snapshot:import && be rake db:migrate && be rake db:test:prepare && be rake commercial_agency:db:seed"
-
-# show local branches that have been merged into master
-merged_branches()
-{
-  git branch --merged master | grep -v \* | grep -v integ* | grep -v production | grep -v master
-}
-
-deploy_this_branch_to()
-{
-  branch=$(git rev-parse --abbrev-ref HEAD) bundle exec cap $1 deploy
-}
-
-# CoverHound Aliases
-alias be="bundle exec"
-alias cd-com="cd ~/Code/commercial"
-alias client-hot="sh -c 'rm -rf public/business-insurance/webpack || true && yarn run hot-assets'"
-alias web="HOT_RELOADING=TRUE bundle exec rails s -p 3000"
-alias sidekiq="be sidekiq"
-alias deploy-to-batman="deploy_this_branch_to commercial-s-batman"
-alias deploy-to-preprod="deploy_this_branch_to commercial-s-preprod"
-
-############## /COVERHOUND CONFIG ###############
-
-
 # Fixes weird issue resulting in "no match found" error (https://github.com/ohmyzsh/ohmyzsh/issues/31)
 unsetopt nomatch
 
@@ -124,7 +87,7 @@ alias ~="cd ~"
 alias cco="cd ~/Code"
 
 # Open .zshrc file in VS Code
-alias ozshrc="open ~/.zshrc"
+alias ozshrc="code ~/.zshrc"
 
 # git aliases
 alias g="git"
